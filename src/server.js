@@ -23,8 +23,7 @@ app.get('/register', (req, res) => {
 
 app.post('/register', UserController.store) 
 
-
-try {
+try {  
     mongoose.connect(process.env.MONGO_DB_CONNECTION, {
         useNewUrlParser: true,
 		useUnifiedTopology: true,
