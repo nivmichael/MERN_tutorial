@@ -3,3 +3,4 @@ Make sure also that mongodb atlas user is created, and credential are changed in
 
 # Run dev
 npm run dev
+Ok
