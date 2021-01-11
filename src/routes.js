@@ -6,7 +6,11 @@ const UserController = require('./controllers/UserController');
 const EventController = require('./controllers/EventController');
 const DashboardController = require('./controllers/DashboardController');
 const LoginController = require('./controllers/LoginController');
+const RegistrationController = require('./controllers/RegistrationController');
+const ApprovalController = require('./controllers/ApprovalController');
+const RejectionController = require('./controllers/RejectionController');
 const uploadConfig = require('./config/upload');
+
 
 const routes = express.Router();
 const upload = multer(uploadConfig);
@@ -14,10 +18,17 @@ const upload = multer(uploadConfig);
 routes.get('/status', (req, res) => { 
     res.send({status: 200 });
 })
-// TODO LoginController
-// TODO SubscribeController
-// TODO ApprovalController
+
+
+
+// Registration
+routes.post('/registration/:eventId/', RegistrationController.create)
+routes.get('/registration/:registrationId', RegistrationController.getRegistration)
+
+// ApprovalController
+routes.post('/registration/:registration_id/approvals', ApprovalController.approval)
 // TODO RejectionController
+routes.post('/registration/:registration_id/rejections', RejectionController.rejection)
 
 // Login
 routes.post('/login', LoginController.store)
@@ -28,9 +39,10 @@ routes.get('/dashboard/:sport', DashboardController.GetAllEvents)
 routes.get('/dashboard/:eventId', DashboardController.GetEventById)
 
 // Event
-
 routes.post('/event', upload.single("thumbnail"), EventController.createEvent)
 routes.delete('/event/:eventId', EventController.delete)
+ 
+
 
 // User
 routes.post('/user/register', UserController.createUser) 
